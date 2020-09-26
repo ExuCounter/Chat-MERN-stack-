@@ -12,12 +12,50 @@
     font-size: 2.4rem;
 }
 
+
+/* AUTH NAVIGATION */
+
 .auth-navigation {
     margin-top: 4rem;
 }
 
 .auth-navigation a {
+    font-size: 1.4rem;
     color: #2C3A47 !important;
     text-decoration: none !important;
-    margin-right: 1.5rem;
+    margin: 0.75rem;
+    position: relative;
+}
+
+.auth-navigation a:first-child {
+    margin-left: 0;
+}
+
+.auth-navigation a:not(:last-child):before {
+    content: '';
+    position: absolute;
+    right: -0.75rem;
+    top: 0.125rem;
+    width: 1px;
+    height: 100%;
+    background-color: #2C3A47;
+    opacity: 0.5;
+}
+
+
+/* AUTH FORM */
+
+.auth-form {
+    margin-top: 2rem;
+    max-width: 300px;
+}
+
+.auth-form input {
+    padding: 1.5rem 0.5rem;
+    font-size: 1.6rem;
+}
+
+.auth-form button {
+    font-size: 1.6rem;
+    margin-top: 1rem;
 }
