@@ -1,12 +1,12 @@
 import React from 'react';
-import {AuthPageSidebar} from '../components/auth/sidebar';
-import {AuthPageContent} from '../components/auth/index';
+import {AuthSidebar} from '../components/auth/auth-sidebar/sidebar';
+import {AuthContent} from '../components/auth/auth-content/content';
 
 export const AuthPage = (props) => {
     return(
         <React.Fragment>
-            <AuthPageSidebar/>
-            <AuthPageContent step={props.step}/>
+            <AuthSidebar/>
+            <AuthContent step={props.step}/>
         </React.Fragment>
     )
 }
