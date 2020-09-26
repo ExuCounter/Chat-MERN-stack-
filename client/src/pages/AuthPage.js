@@ -3,15 +3,16 @@ import {AuthSidebar} from '../components/auth/auth-sidebar/sidebar';
 import {AuthContent} from '../components/auth/auth-content/content';
 import {Row, Col, Container} from 'react-bootstrap';
 import '../styles/auth/auth.css';
+import '../styles/base/base.css';
 
 export const AuthPage = (props) => {
     return(
-        <Container fluid>
-            <Row>
-                <Col sm={4} className='no-padding'>
+        <Container fluid className="auth-container">
+            <Row className="auth-row">
+                <Col xs={4} className='p-0 auth-col'>
                     <AuthSidebar/>
                 </Col>
-                <Col sm={8} className='no-padding'>
+                <Col xs={8} className='p-0 auth-col'>
                     <AuthContent step={props.step}/>
                 </Col>
             </Row>

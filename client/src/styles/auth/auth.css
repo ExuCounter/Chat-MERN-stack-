@@ -1,2 +1,12 @@
 @import 'auth-content/auth-content.css';
 @import 'auth-sidebar/auth-sidebar.css';
+.auth-container {
+    height: 100vh;
+}
+
+.auth-col,
+.auth-row,
+.auth-content,
+.auth-sidebar {
+    height: 100%;
+}
