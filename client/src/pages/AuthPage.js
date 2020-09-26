@@ -1,19 +1,12 @@
 import React from 'react';
+import {AuthPageSidebar} from '../components/auth/sidebar';
+import {AuthPageContent} from '../components/auth/index';
 
 export const AuthPage = (props) => {
-    let step = props.step;
-    switch(step){
-        case 'login': 
-        return(
-            AuthPageContent('login')
-        )
-        case 'register': 
-        return(
-            AuthPageContent('register')
-        )
-        case 'reset-password': 
-        return(
-            AuthPageContent('reset-password')
-        )
-    }
+    return(
+        <React.Fragment>
+            <AuthPageSidebar/>
+            <AuthPageContent step={props.step}/>
+        </React.Fragment>
+    )
 }
