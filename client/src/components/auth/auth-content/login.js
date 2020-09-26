@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
+import {AuthNavigation} from './Navigation';
 
 export const LoginContent = () => {
     return(
@@ -22,14 +23,10 @@ export const LoginContent = () => {
                     Go to chat
                 </Button>
             </Form>
-            <div className='auth-navigation'>
-                <a href="/register">
-                    Sign Up
-                </a>
-                <a href="/reset-password">
-                    Forget password?
-                </a>
-            </div>
+            <AuthNavigation links={{
+               "register": "Sign Up",
+               "reset-password": "Forget password?"
+            }} />
         </React.Fragment>
     )
 }

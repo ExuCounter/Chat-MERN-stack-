@@ -1,7 +1,7 @@
 import React from 'react';
-import {LoginContent} from './login';
-import {RegisterContent} from './register';
-import {ResetPasswordContent} from './reset-password';
+import {LoginContent} from './Login';
+import {RegisterContent} from './Register';
+import {ResetPasswordContent} from './ResetPassword';
 
 export const AuthContent = (props) => {
     const AuthContentInner = ({children}) => {
