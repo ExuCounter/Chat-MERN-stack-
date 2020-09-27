@@ -64,7 +64,7 @@ export const RegisterContent = () => {
         e.preventDefault(e);
         // const data = await request('/register', 'POST', {...form});
         // console.log('Data' + data);
-        if(step == 'first-step'){
+        if(isValidEmail(form.email) && step == 'first-step'){
             firstStepHandler();
             document.querySelector('.register-password').addEventListener('input', (e)=>{
                 if(e.target.value !== ''){
