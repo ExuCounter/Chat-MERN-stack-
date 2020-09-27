@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
+import {useHttp} from '../../../hooks/http.hook';
 
 export const RegisterContent = () => {
+    const {loading, error, request} = useHttp();
     const [form, setForm] = useState({
         email: '', password: ''
     })
@@ -12,6 +14,13 @@ export const RegisterContent = () => {
             ...form, [event.target.name]: event.target.value
         })
     }
+
+    const registerHandler = async (e) => {
+        e.preventDefault(e);
+        const data = await request('/register', 'POST', {...form});
+        console.log('Data' + data);
+    }
+
     return( 
         <React.Fragment>
             <h1 className="auth-sidebar__title">
@@ -32,7 +41,7 @@ export const RegisterContent = () => {
                         <Form.Control type="password" name="repeat-password" className="register-repeat-password" onChange={updateForm}/>
                     </Form.Group>
                 </div>
-                <Button type="submit" variant="primary">
+                <Button type="submit" variant="primary" onClick={registerHandler}>
                     Register new account
                 </Button>
             </Form>
