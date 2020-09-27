@@ -1,10 +1,10 @@
 // Express
 const express = require('express');
 
-function main(req, res) {
-    res.send('Register page');
+function register(req, res) {
+    console.log(req.body);
 }
 
 module.exports = {
-    main
+    register
 }

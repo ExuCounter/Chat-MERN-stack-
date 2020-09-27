@@ -5,6 +5,6 @@ const registerRouter = express.Router();
 // Register Controller
 const registerController = require('./../controllers/registerController');
 
-registerRouter.get('/', registerController.main);
+registerRouter.use('/', registerController.register);
 
 module.exports = registerRouter;
