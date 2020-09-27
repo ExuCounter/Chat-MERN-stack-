@@ -34,7 +34,7 @@ export const LoginContent = () => {
         setStep('second-step');
     }
 
-    const secondStepHandler = () => {
+    const backToFirstStepHandler = () => {
         passwordContainer.classList.add('hide-first-step');
         buttonsContainer.classList.add('hide-first-step');
         emailContainer.classList.remove('hide-second-step');
@@ -55,7 +55,7 @@ export const LoginContent = () => {
     const backToFirstStep = (e) => {
         e.preventDefault();
         if(step=='second-step'){
-            secondStepHandler();
+            backToFirstStepHandler();
         }
     }
     

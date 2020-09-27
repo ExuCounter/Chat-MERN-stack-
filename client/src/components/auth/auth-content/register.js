@@ -12,18 +12,19 @@ export const RegisterContent = () => {
         email: '', password: ''
     })
 
+    const updateForm = event => {
+        setForm({
+            ...form, [event.target.name]: event.target.value
+        })
+    }
+
     // Node elements 
 
     const emailsContainer = document.querySelector('.register-emails');
     const passwordsContainer = document.querySelector('.register-passwords');
     const buttonsContainer = document.querySelector('.form-buttons');
     const submitFormButton = document.querySelector('.submit-form-btn');
-
-    const updateForm = event => {
-        setForm({
-            ...form, [event.target.name]: event.target.value
-        })
-    }
+    const registerPasswordValidation = document.querySelector('.register-password__validation');
 
     // Steps handlers 
 
@@ -32,34 +33,82 @@ export const RegisterContent = () => {
         passwordsContainer.classList.remove('hide-first-step');
         buttonsContainer.classList.remove('hide-first-step');
         submitFormButton.innerHTML = `Register me!`;
-        emailsContainer.querySelector('input').setAttribute('disabled', 'disabled');
         emailsContainer.querySelector('input').classList.add('input-filled');
+        emailsContainer.querySelector('input').setAttribute('disabled', 'disabled');
+        checkSubmitButton();
         setStep('second-step');
     }
 
-    const secondStepHandler = () => {
+    const backToFirstStepHandler = () => {
         emailsContainer.classList.remove('mb-3');
         passwordsContainer.classList.add('hide-first-step');
         buttonsContainer.classList.add('hide-first-step');
-        emailsContainer.querySelector('input').removeAttribute('disabled', 'disabled');
         emailsContainer.querySelector('input').classList.remove('input-filled');
+        emailsContainer.querySelector('input').removeAttribute('disabled', 'disabled');
         submitFormButton.innerHTML = `Continue`;
+        submitFormButton.removeAttribute('disabled', 'disabled');
         setStep('first-step');
     }
 
-    const registerHandler = async (e) => {
+    const checkSubmitButton = () => {
+        if(document.querySelector('.capital-and-number').classList.contains('done') &&
+        document.querySelector('.min-char').classList.contains('done') &&
+        document.querySelector('.pass-equal').classList.contains('done')){
+            submitFormButton.removeAttribute('disabled', 'disabled');
+        } else {
+            submitFormButton.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    const registerHandler = (e) => {
         e.preventDefault(e);
         // const data = await request('/register', 'POST', {...form});
         // console.log('Data' + data);
-        if(isValidEmail(form.email) && step == 'first-step'){
+        if(step == 'first-step'){
             firstStepHandler();
+            document.querySelector('.register-password').addEventListener('input', (e)=>{
+                if(e.target.value !== ''){
+                    if((e.target.value).match(/[A-Z]/) && (e.target.value).match(/[0-9]/)){
+                        document.querySelector('.capital-and-number').classList.add('done');
+                    }
+                    else{
+                        document.querySelector('.capital-and-number').classList.remove('done');
+                    }
+    
+                    if((e.target.value).length >= 6 ){
+                        document.querySelector('.min-char').classList.add('done');
+                    }
+                    else{
+                        document.querySelector('.min-char').classList.remove('done');
+                    }
+
+                    if(e.target.value === document.querySelector('.register-repeat-password').value){
+                        document.querySelector('.pass-equal').classList.add('done');
+                    }
+                    else{
+                        document.querySelector('.pass-equal').classList.remove('done');
+                    }
+                    checkSubmitButton();
+                }
+            })
+            document.querySelector('.register-repeat-password').addEventListener('input', (e)=>{
+                if(e.target.value !== ''){
+                    if(e.target.value == document.querySelector('.register-password').value){
+                        document.querySelector('.pass-equal').classList.add('done');
+                    }
+                    else{
+                        document.querySelector('.pass-equal').classList.remove('done');
+                    }
+                    checkSubmitButton();
+                }
+            })
         }
     }
 
     const backToFirstStep = (e) => {
         e.preventDefault();
         if(step == 'second-step'){
-            secondStepHandler()
+            backToFirstStepHandler();
         }
     }
 
@@ -84,6 +133,17 @@ export const RegisterContent = () => {
                         <Form.Label>Repeat password</Form.Label>
                         <Form.Control type="password" name="repeat-password" className="register-repeat-password" onChange={updateForm}/>
                     </Form.Group>
+                    <ul className="register-password__validation">
+                        <li className='min-char'>
+                            Minimum characters 6
+                        </li>
+                        <li className='capital-and-number'>    
+                            At least one capital letter and number
+                        </li>
+                        <li className='pass-equal'>    
+                            Passwords equal
+                        </li>
+                    </ul>
                 </div>
                 <div className='form-buttons align-items-center d-flex hide-first-step'>
                     <a href="/" className='back-to-btn' onClick={backToFirstStep}>

@@ -3,6 +3,8 @@
     color: #2C3A47;
     font-size: 1.6rem;
     padding: 22.5vh 2.5rem 2.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .auth-content__title {
@@ -98,6 +100,7 @@
 .auth-form .register-emails,
 .auth-form .login-password {
     display: block;
+    position: relative;
 }
 
 .auth-form .register-passwords.hide-first-step,
@@ -109,4 +112,27 @@
 
 .auth-form .form-buttons.hide-first-step {
     transform: translateX(-67%);
+}
+
+
+/* Register password validation */
+
+.register-password__validation {
+    font-size: 1.2rem;
+    position: absolute;
+    right: -170px;
+    top: 2.5rem;
+    width: 100%;
+    max-width: 150px;
+}
+
+.register-password__validation li.done,
+.register-password__validation li.done svg {
+    color: #706fd3;
+    fill: #706fd3;
+}
+
+.register-password__validation li,
+.register-password__validation svg {
+    transition: all 0.3s ease-in-out;
 }
