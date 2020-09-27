@@ -1,5 +1,6 @@
 // Express
 const express = require('express');
+const shortid = require('shortid');
 
 function register(req, res) {
     console.log("Body + " + req.body.email);
