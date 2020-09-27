@@ -12,3 +12,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.btn-primary {
+    background-color: #706fd3 !important;
+    outline: none !important;
+    border: solid 0.1rem #706fd3 !important;
+}
+
+.btn-primary:hover {
+    background-color: #6968d0 !important;
+}

@@ -8,14 +8,16 @@ export const ResetPasswordContent = () => {
             <h1 className="auth-sidebar__title">
                 Reset Password
             </h1>
-            <Form action="/reset-password" method="POST" className='auth-form'>
+            <Form action="/reset-password" method="POST" className='auth-form auth-form-reset'>
                 <Form.Group className="reset-password-email">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" name="email"/>
+                    <Form.Control type="email" name="email" placeholder="example@gmail.com"/>
                 </Form.Group>
-                <Button type="submit" variant="primary">
-                    Please remember my password
-                </Button>
+                <div className="form-buttons">
+                    <Button type="submit" variant="primary">
+                        Please remember my password
+                    </Button>
+                </div>
             </Form>
             <AuthNavigation links={{
                "login": "Log In",

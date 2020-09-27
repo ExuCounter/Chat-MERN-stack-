@@ -5,13 +5,13 @@ import {AuthNavigation} from './Navigation';
 export const LoginContent = () => {
     return(
         <React.Fragment>
-            <h1 className="auth-sidebar__title">
+            <h1 className="auth-content__title">
                 Login
             </h1>
             <Form action="/login" method="POST" className='auth-form'>
                 <Form.Group className="login-email">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" name="email"/>
+                    <Form.Control type="email" name="email" placeholder="example@gmail.com"/>
                 </Form.Group>
                 <div className="login-password">
                     <Form.Group>
@@ -19,13 +19,15 @@ export const LoginContent = () => {
                         <Form.Control type="password" name="password" className="login-password"/>
                     </Form.Group>
                 </div>
-                <Button type="submit" variant="primary">
-                    Go to chat
-                </Button>
+                <div className="form-buttons">
+                    <Button type="submit" variant="primary">
+                        Go to chat
+                    </Button>
+                </div>
             </Form>
             <AuthNavigation links={{
                "register": "Sign Up",
-               "reset-password": "Forget password?"
+               "reset-password": "Forget password ?"
             }} />
         </React.Fragment>
     )

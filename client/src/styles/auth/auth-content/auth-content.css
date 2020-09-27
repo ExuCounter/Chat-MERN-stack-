@@ -2,14 +2,12 @@
     background-color: #f7f1e3;
     color: #2C3A47;
     font-size: 1.6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5rem;
+    padding: 22.5% 2.5rem 2.5rem 3.5rem;
 }
 
 .auth-content__title {
-    font-size: 2.4rem;
+    font-size: 3rem;
+    font-family: 'David Libre', serif;
 }
 
 
@@ -17,6 +15,7 @@
 
 .auth-navigation {
     margin-top: 4rem;
+    font-family: 'David Libre', serif;
 }
 
 .auth-navigation a {
@@ -25,10 +24,15 @@
     text-decoration: none !important;
     margin: 0.75rem;
     position: relative;
+    transition: 0.15s ease-in-out;
 }
 
 .auth-navigation a:first-child {
     margin-left: 0;
+}
+
+.auth-navigation a:hover {
+    color: #706fd3 !important;
 }
 
 .auth-navigation a:not(:last-child):before {
@@ -47,15 +51,64 @@
 
 .auth-form {
     margin-top: 2rem;
-    max-width: 300px;
+    max-width: 350px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .auth-form input {
-    padding: 1.5rem 0.5rem;
-    font-size: 1.6rem;
+    padding: 1.7rem 0.7rem;
+    font-size: 1.4rem;
 }
 
-.auth-form button {
-    font-size: 1.6rem;
-    margin-top: 1rem;
+.auth-form .form-buttons button {
+    font-size: 1.4rem;
+    padding: 0.5rem 1.25rem;
+    width: 33%;
+}
+
+.auth-form-reset .form-buttons button {
+    width: auto;
+}
+
+.auth-form .form-buttons {
+    margin-top: 1.5rem;
+    justify-content: space-between;
+    transition: all 0.2s ease-in-out;
+    transform: translateX(0);
+}
+
+.auth-form .form-buttons .back-to-btn {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #706fd3;
+    font-size: 1.4rem;
+    transition: all 0.15s ease-in-out;
+    text-decoration: none;
+}
+
+.auth-form .form-buttons .back-to-btn img,
+.auth-form .form-buttons .back-to-btn i {
+    max-width: 1.5rem;
+    margin-right: 0.75rem;
+}
+
+.auth-form .register-passwords,
+.auth-form .register-emails {
+    opacity: 1;
+    visibility: visible;
+    max-height: 500px;
+}
+
+.auth-form .register-passwords.first-step,
+.auth-form .register-emails.second-step {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    margin: 0;
+}
+
+.auth-form .form-buttons.first-step {
+    transform: translateX(-67%);
 }
