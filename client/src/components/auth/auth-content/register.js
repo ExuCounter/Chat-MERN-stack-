@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {useHttp} from '../../../hooks/http.hook';
+import {isValidEmail} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
 
 export const RegisterContent = () => {
     const {loading, error, request} = useHttp();
+    const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
         email: '', password: ''
     })
@@ -15,6 +17,7 @@ export const RegisterContent = () => {
     const emailsContainer = document.querySelector('.register-emails');
     const passwordsContainer = document.querySelector('.register-passwords');
     const buttonsContainer = document.querySelector('.form-buttons');
+    const submitFormButton = document.querySelector('.submit-form-btn');
 
     const updateForm = event => {
         setForm({
@@ -22,32 +25,42 @@ export const RegisterContent = () => {
         })
     }
 
+    // Steps handlers 
+
+    const firstStepHandler = () => {
+        emailsContainer.classList.add('mb-3');
+        passwordsContainer.classList.remove('hide-first-step');
+        buttonsContainer.classList.remove('hide-first-step');
+        submitFormButton.innerHTML = `Register me!`;
+        emailsContainer.querySelector('input').setAttribute('disabled', 'disabled');
+        emailsContainer.querySelector('input').classList.add('input-filled');
+        setStep('second-step');
+    }
+
+    const secondStepHandler = () => {
+        emailsContainer.classList.remove('mb-3');
+        passwordsContainer.classList.add('hide-first-step');
+        buttonsContainer.classList.add('hide-first-step');
+        emailsContainer.querySelector('input').removeAttribute('disabled', 'disabled');
+        emailsContainer.querySelector('input').classList.remove('input-filled');
+        submitFormButton.innerHTML = `Continue`;
+        setStep('first-step');
+    }
+
     const registerHandler = async (e) => {
         e.preventDefault(e);
         // const data = await request('/register', 'POST', {...form});
         // console.log('Data' + data);
-        if(isValidEmail(form.email)){
-            emailsContainer.classList.add('second-step');
-            passwordsContainer.classList.remove('first-step');
-            buttonsContainer.classList.remove('first-step');
-        }
-    }
-
-    const isValidEmail = (email) => {
-        if(email.match((/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))){
-            console.log('Email valid');
-            return true;
-        } else {
-            console.log('Email invalid')
-            return false;
+        if(isValidEmail(form.email) && step == 'first-step'){
+            firstStepHandler();
         }
     }
 
     const backToFirstStep = (e) => {
         e.preventDefault();
-        emailsContainer.classList.remove('second-step');
-        passwordsContainer.classList.add('first-step');
-        buttonsContainer.classList.add('first-step');
+        if(step == 'second-step'){
+            secondStepHandler()
+        }
     }
 
     return( 
@@ -62,7 +75,7 @@ export const RegisterContent = () => {
                         <Form.Control type="email" name="email" placeholder="example@gmail.com" onChange={updateForm}/>
                     </Form.Group>
                 </div>
-                <div className="register-passwords first-step">
+                <div className="register-passwords hide-first-step">
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" className="register-password" onChange={updateForm}/>
@@ -72,12 +85,12 @@ export const RegisterContent = () => {
                         <Form.Control type="password" name="repeat-password" className="register-repeat-password" onChange={updateForm}/>
                     </Form.Group>
                 </div>
-                <div className='form-buttons align-items-center d-flex first-step'>
+                <div className='form-buttons align-items-center d-flex hide-first-step'>
                     <a href="/" className='back-to-btn' onClick={backToFirstStep}>
                         <img src={leftArrowIcon} alt="Left Arrow Icon"/>
                         Back to email
                     </a>
-                    <Button type="submit" variant="primary" onClick={registerHandler}>
+                    <Button type="submit" variant="primary" className='submit-form-btn' onClick={registerHandler}>
                         Continue
                     </Button>
                 </div>

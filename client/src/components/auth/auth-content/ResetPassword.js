@@ -5,7 +5,7 @@ import {AuthNavigation} from './Navigation';
 export const ResetPasswordContent = () => {
     return(
         <React.Fragment>
-            <h1 className="auth-sidebar__title">
+            <h1 className="auth-content__title">
                 Reset Password
             </h1>
             <Form action="/reset-password" method="POST" className='auth-form auth-form-reset'>
