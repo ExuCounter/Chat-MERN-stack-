@@ -1,8 +1,6 @@
 // Express
 const express = require('express');
-const shortid = require('shortid');
 const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose');
 const User = require('../models/User');
 
 async function register(req, res) {
