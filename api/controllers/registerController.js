@@ -9,8 +9,14 @@ async function register(req, res) {
     try {
         const { email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, password: hashedPassword });
-        user.save();
+        const candidate = await User.findOne({ email });
+        if (candidate) {
+            console.log(candidate);
+            res.status(400).send('Such user already exists');
+        } else {
+            const user = new User({ email, password: hashedPassword });
+            user.save();
+        }
         res.send({
             email: req.body.email,
             password: req.body.password
