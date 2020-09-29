@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 // Mongo DB
 const MongoClient = require('mongodb').MongoClient;
 const objectId = require('mongodb').ObjectID;
+// Mongoose
+const mongoose = require('mongoose');
 
 const url = "mongodb://localhost:27017/";
 const mongoClient = new MongoClient(url, {
@@ -32,9 +34,15 @@ mongoClient.connect((err, client) => {
     app.locals.usersCollection = client.db('chat').collection('users');
     app.locals.usersCollection.find().toArray((err, collection) => {
         if (err) return console.error(err);
-        console.log(collection)
+        console.log('Database connection estabilished')
     })
 })
+
+// Mongoose Connect 
+mongoose.connect("mongodb://localhost:27017/chat", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+});
 
 // Listen determined port
 app.listen(config.PORT, () => {
