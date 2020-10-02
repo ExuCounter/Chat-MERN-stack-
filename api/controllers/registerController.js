@@ -15,10 +15,7 @@ async function register(req, res) {
             const user = new User({ email, password: hashedPassword });
             user.save();
         }
-        res.send({
-            email: req.body.email,
-            password: req.body.password
-        })
+        res.status(200).send('User successfully created');
     } catch (e) {
         res.status(500).send('Something went wrong with registration. Please try again');
     }
