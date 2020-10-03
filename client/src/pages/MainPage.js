@@ -9,10 +9,10 @@ export const MainPage = (props) => {
     return(
         <Container fluid className="chat-container">
             <Row className="chat-row">
-                <Col xs={4} className='p-0 chat-col'>
+                <Col xs={3} className='p-0 chat-col'>
                     <ChatSidebar/>
                 </Col>
-                <Col xs={8} className='p-0 chat-col'>
+                <Col xs={9} className='p-0 chat-col'>
                     <ChatContent/>
                 </Col>
             </Row>

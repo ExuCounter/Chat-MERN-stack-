@@ -1,4 +1,5 @@
 import React from 'react';
+import {SidebarMessage} from './Message';
 
 export const ChatSidebar = () => {
     const ChatSidebarInner = ({children}) => {
@@ -10,7 +11,7 @@ export const ChatSidebar = () => {
     }
     return(
         <ChatSidebarInner>
-            sidebar
+            <SidebarMessage chatName={"Name"} chatText={'Small Message'}/>
         </ChatSidebarInner>
     )
 }
