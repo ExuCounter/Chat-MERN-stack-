@@ -11,21 +11,29 @@ export const useHttp = () => {
                 body = JSON.stringify(body);
                 headers['Content-Type'] = 'application/json'
             }
-            const response = await fetch(url, { method, body, headers });
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Incorrect query');
+            let response = await fetch(url, { method, body, headers });
+            let status = response.status;
+            let data = await response.text();
+            if (status == 400) {
+                setError(data);
             }
-
+            try {
+                data = JSON.parse(data);
+            } catch (err) {
+                console.log('Answer from server is not JSON');
+            }
             setLoading(false);
             return data;
         } catch (error) {
             setLoading(false);
             setError(error);
-            throw new Error('Query is not valid');
+            return new Error('Error: ' + error.message);
         }
     }, [])
 
-    return { request, loading, error }
+    const clearError = () => {
+        setError(false);
+    }
+
+    return { request, loading, error, clearError }
 }

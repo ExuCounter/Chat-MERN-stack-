@@ -1,7 +1,21 @@
 import React from 'react';
+import {ChatSidebar} from '../components/chat/chat-sidebar/Sidebar';
+import {ChatContent} from '../components/chat/chat-content/Content';
+import {Row, Col, Container} from 'react-bootstrap';
+import '../styles/auth/auth.css';
+import '../styles/base/base.css';
 
-export const MainPage = () => {
+export const MainPage = (props) => {
     return(
-        <div>MainPage</div>
+        <Container fluid className="chat-container">
+            <Row className="chat-row">
+                <Col xs={4} className='p-0 chat-col'>
+                    <ChatSidebar/>
+                </Col>
+                <Col xs={8} className='p-0 chat-col'>
+                    <ChatContent/>
+                </Col>
+            </Row>
+        </Container>
     )
 }

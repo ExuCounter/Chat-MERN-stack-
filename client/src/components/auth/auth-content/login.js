@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {isValidEmail} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
+import {AuthContext} from '../../../context/AuthContext';
+import {useHttp} from '../../../hooks/http.hook';
 
 export const LoginContent = () => {
+    const auth = useContext(AuthContext);
+    const {loading, error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
         email: '', password: ''
@@ -16,6 +20,13 @@ export const LoginContent = () => {
             [event.target.name]: event.target.value
         })
     }
+
+    useEffect(()=>{
+        if(error){
+            alert(error);
+            clearError();
+        }
+    }, [error])
 
     // Node Elements
 
@@ -49,6 +60,11 @@ export const LoginContent = () => {
         // console.log('Data' + data);
         if(isValidEmail(form.email) && step=='first-step'){
             firstStepHandler();
+        }
+        if(isValidEmail(form.email) && step=='second-step'){
+            const data = await request('/login', 'POST', {...form });
+            auth.login(data.token, data.userId);
+            console.log("Data from the server: " + data);
         }
     }
 

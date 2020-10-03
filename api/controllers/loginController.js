@@ -14,7 +14,7 @@ async function login(req, res) {
             let result = await bcrypt.compare(password, user.password);
             if (result) {
                 token = jwt.sign({ id: 'id' }, config.secretKey, { expiresIn: '1h' });
-                res.status(200).send({ token });
+                res.status(200).send({ token, userId: 'id' });
             } else {
                 console.log('User do not exist ( Incorrect email )');
                 res.status(400).send('No such user or incorrect email');

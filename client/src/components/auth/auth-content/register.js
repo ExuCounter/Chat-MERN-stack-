@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {Form, Button} from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {Form, Button, Alert} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {useHttp} from '../../../hooks/http.hook';
 import {isValidEmail} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
 
 export const RegisterContent = () => {
-    const {loading, error, request} = useHttp();
+    const {loading, error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
         email: '', password: ''
@@ -17,6 +17,13 @@ export const RegisterContent = () => {
             ...form, [event.target.name]: event.target.value
         })
     }
+
+    useEffect(()=>{
+        if(error){
+            alert(error);
+            clearError();
+        }
+    }, [error])
 
     // Node elements 
 
@@ -60,10 +67,8 @@ export const RegisterContent = () => {
         }
     }
 
-    const registerHandler = (e) => {
+    const registerHandler = async (e) => {
         e.preventDefault(e);
-        // const data = await request('/register', 'POST', {...form});
-        // console.log('Data' + data);
         if(isValidEmail(form.email) && step == 'first-step'){
             firstStepHandler();
             document.querySelector('.register-password').addEventListener('input', (e)=>{
@@ -102,6 +107,10 @@ export const RegisterContent = () => {
                     checkSubmitButton();
                 }
             })
+        }
+        if (isValidEmail(form.email) && step == 'second-step') {
+            const data = await request('/register', 'POST', {...form });
+            console.log(data);
         }
     }
 
