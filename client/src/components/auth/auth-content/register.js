@@ -1,11 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Form, Button, Alert} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {useHttp} from '../../../hooks/http.hook';
+import {useAuth} from '../../../hooks/auth.hook';
 import {isValidEmail} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
+import {AuthContext} from '../../../context/AuthContext';
 
 export const RegisterContent = () => {
+    const auth = useContext(AuthContext);
     const {loading, error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
@@ -110,7 +113,12 @@ export const RegisterContent = () => {
         }
         if (isValidEmail(form.email) && step == 'second-step') {
             const data = await request('/register', 'POST', {...form });
-            console.log(data);
+            if(data){
+                const data = await request('/login', 'POST', {...form});
+                if(data){
+                    auth.login(data.token, data.userId);
+                }
+            }
         }
     }
 

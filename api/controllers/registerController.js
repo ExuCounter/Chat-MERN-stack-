@@ -12,10 +12,10 @@ async function register(req, res) {
             console.log(candidate);
             res.status(400).send('Such user already exists');
         } else {
-            const user = new User({ email, password: hashedPassword });
+            const user = new User({ email, password: hashedPassword, chats: {} });
             user.save();
+            res.status(200).send({ user });
         }
-        res.status(200).send('User successfully created');
     } catch (e) {
         res.status(500).send('Something went wrong with registration. Please try again');
     }

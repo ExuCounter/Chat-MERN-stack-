@@ -6,6 +6,7 @@ const config = require('./config/config.dev.js');
 // Routes
 const loginRouter = require('./routes/loginRouter.js');
 const registerRouter = require('./routes/registerRouter.js');
+const userRouter = require('./routes/userRouter.js');
 // Body Parser
 const bodyParser = require('body-parser');
 // Mongo DB
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 // Connect routes
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/chat', userRouter);
 
 // Mongo DB Connect
 mongoClient.connect((err, client) => {
