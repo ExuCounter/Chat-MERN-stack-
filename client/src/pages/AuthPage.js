@@ -2,7 +2,7 @@ import React from 'react';
 import {AuthSidebar} from '../components/auth/auth-sidebar/Sidebar';
 import {AuthContent} from '../components/auth/auth-content/Content';
 import {Row, Col, Container} from 'react-bootstrap';
-import '../styles/auth/auth.css';
+import '../styles/chat/chat.css';
 import '../styles/base/base.css';
 
 export const AuthPage = (props) => {

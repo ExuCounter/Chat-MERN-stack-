@@ -1,0 +1,12 @@
+@import 'chat-content/chat-content.css';
+@import 'chat-sidebar/chat-sidebar.css';
+.chat-container {
+    height: 100vh;
+}
+
+.chat-col,
+.chat-row,
+.chat-content,
+.chat-sidebar {
+    height: 100%;
+}
