@@ -2,6 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const Chat = require('../models/Chat');
 
 async function register(req, res) {
     try {
@@ -12,7 +13,7 @@ async function register(req, res) {
             console.log(candidate);
             res.status(400).send('Such user already exists');
         } else {
-            const user = new User({ email, password: hashedPassword, chats: {} });
+            const user = new User({ email, password: hashedPassword });
             user.save();
             res.status(200).send({ user });
         }

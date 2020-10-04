@@ -1,11 +1,12 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const ObjectId = require('mongodb').ObjectID;
 
 const chatSchema = new Schema({
-    senderId: { type: String, required: true },
-    receiverId: { type: String, required: true },
-    lastMessageId: { type: String, required: true },
-    lastMessageDate: { type: Date, required: true }
+    senderId: { type: String },
+    receiverId: { type: String },
+    lastMessageId: { type: String },
+    lastMessageDate: { type: Date },
+    owner: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 module.exports = model('Chat', chatSchema);

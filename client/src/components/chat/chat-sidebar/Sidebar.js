@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect, useContext, useState} from 'react';
+import {AuthContext} from '../../../context/AuthContext';
+import {useHttp} from '../../../hooks/http.hook';
 import {SidebarMessage} from './Message';
 
 export const ChatSidebar = () => {
+    const {request} = useHttp();
+    const [chats, setChats] = useState([]);
+    const auth = useContext(AuthContext);
+    useEffect(()=>{
+        async function fetchData() {
+            let data = await request('/chat', 'POST', {id: auth.userId});
+            setChats(data);
+        }
+        fetchData()
+    }, [])
+
     const ChatSidebarInner = ({children}) => {
         return(
             <div className='chat-sidebar'>
@@ -11,7 +24,11 @@ export const ChatSidebar = () => {
     }
     return(
         <ChatSidebarInner>
-            <SidebarMessage chatName={"Name"} chatText={'Small Message'}/>
+            {
+                chats.map(chat =>(
+                    <SidebarMessage chatName={chat.senderId} chatText={'Small Message'}/>
+                ))
+            }
         </ChatSidebarInner>
     )
 }

@@ -4,6 +4,7 @@ import {RegisterContent} from './Register';
 import {ResetPasswordContent} from './ResetPassword';
 
 export const AuthContent = (props) => {
+    
     const AuthContentInner = ({children}) => {
         return(
             <div className='auth-content'>

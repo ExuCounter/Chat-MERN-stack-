@@ -68,6 +68,7 @@ export const RegisterContent = () => {
         } else {
             submitFormButton.setAttribute('disabled', 'disabled');
         }
+        submitFormButton.removeAttribute('disabled', 'disabled');
     }
 
     const registerHandler = async (e) => {

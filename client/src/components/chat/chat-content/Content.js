@@ -9,6 +9,7 @@ export const ChatContent = () => {
     useEffect(()=>{
         async function fetchData() {
             const data = await request('/chat', 'POST', {id: auth.userId});
+            console.log(data.chats);
         }
         fetchData()
     }, [])
