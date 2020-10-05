@@ -28,6 +28,7 @@ export const ChatSidebar = () => {
 
     const updateCurrentChatId = (id) => {
         chat.updateCurrentChatId(id);
+        console.log(chats);
     }
 
     return(

@@ -35,8 +35,13 @@ export const ChatContent = () => {
     return(
         <ChatContentInner>
             {
+                chatMessages.length == 0 ? <div className='no-messages-yet'>No messages yet</div> :
                 chatMessages.map((message, index)=>(
-                    <div key={index}>{message.body}</div>
+                    <div className='chat-message' key={index}>
+                        <div className="chat-message-body">
+                            {message.body}
+                        </div>
+                    </div>
                 ))
             }
         </ChatContentInner>
