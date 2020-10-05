@@ -15,9 +15,9 @@ async function getUserChats(req, res, next) {
 async function getUserChatMessages(req, res, next) {
     try {
         let messages = await Message.find({ chatId: req.params.id });
-        res.status(200).send({ messages });
+        res.status(200).send(messages);
     } catch (err) {
-        res.status(500).send({ obj: 'obj' });
+        res.status(500).send('No such chat');
     }
 }
 
@@ -40,8 +40,8 @@ async function createChat(req, res, next) {
 
 async function createMessage(req, res, next) {
     let message = new Message({
-        chatId: '5f78e4f91024a5399c173e03',
-        body: 'Message body'
+        chatId: '5f78e4fb1024a5399c173e05',
+        body: 'Another message2233'
     })
     message.save();
     res.send({ message });

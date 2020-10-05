@@ -1,10 +1,13 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {AuthContext} from '../../../context/AuthContext';
+import {ChatContext} from '../../../context/ChatContext';
 import {useHttp} from '../../../hooks/http.hook';
 
 export const ChatContent = () => {
+    const [chatMessages, setChatMessages] = useState([]);
     const {request} = useHttp();
     const auth = useContext(AuthContext);
+    const chat = useContext(ChatContext);
     
     useEffect(()=>{
         async function fetchData() {
@@ -13,6 +16,14 @@ export const ChatContent = () => {
         }
         fetchData()
     }, [])
+
+    useEffect(()=>{
+        async function fetchData() {
+            let data = await chat.getMessagesByChat(chat.currentChatId);
+            setChatMessages(data);
+        }
+        fetchData();
+    }, [chat.currentChatId])
 
     const ChatContentInner = ({children}) => {
         return(
@@ -23,7 +34,11 @@ export const ChatContent = () => {
     }
     return(
         <ChatContentInner>
-            content
+            {
+                chatMessages.map((message, index)=>(
+                    <div key={index}>{message.body}</div>
+                ))
+            }
         </ChatContentInner>
     )
 }
