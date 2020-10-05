@@ -1,18 +1,25 @@
 .chat-sidebar {
     border-right: solid 1px #e2e2e2;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-sidebar-message {
     border-bottom: solid 1px #e2e2e2;
     padding: 0.5rem 0.5rem 0.5rem 0.75rem;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
 }
 
-.chat-sidebar-message p {
+.chat-sidebar-message .chat-name {
     margin-bottom: 0.1rem;
+    text-decoration: none;
+    color: #000;
 }
 
-.chat-sidebar-message span {
+.chat-sidebar-message .chat-text {
     color: #777788;
     font-size: 0.9rem;
 }

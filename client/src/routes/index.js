@@ -10,7 +10,9 @@ export const useRoutes = (isAuthenticated) => {
                 <Route path='/chat' exact>
                     <MainPage/>
                 </Route>
-                <Redirect to='/chat' />
+                <Route path='/chat/:id'>
+                    <MainPage/>
+                </Route>
             </Switch>
         )
     } else{
@@ -25,7 +27,6 @@ export const useRoutes = (isAuthenticated) => {
                 <Route path='/reset-password'>
                     <AuthPage step='reset-password'/>
                 </Route>
-                <Redirect from='/' to='/login'/>
             </Switch>
         )
     }

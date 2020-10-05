@@ -1,5 +1,6 @@
 const express = require('express');
 const Chat = require('../models/Chat');
+const Message = require('../models/Message');
 const ObjectID = require('mongodb').ObjectID;
 
 async function getUserChats(req, res, next) {
@@ -13,10 +14,10 @@ async function getUserChats(req, res, next) {
 
 async function getUserChatMessages(req, res, next) {
     try {
-        let messages = await Chat.find({ owner: req.body.chatId });
+        let messages = await Message.find({ chatId: req.params.id });
         res.status(200).send({ messages });
     } catch (err) {
-        res.status(500).send('Something goes wrong');
+        res.status(500).send({ obj: 'obj' });
     }
 }
 
@@ -37,8 +38,19 @@ async function createChat(req, res, next) {
     // res.send({ chat });
 }
 
+async function createMessage(req, res, next) {
+    let message = new Message({
+        chatId: '5f78e4f91024a5399c173e03',
+        body: 'Message body'
+    })
+    message.save();
+    res.send({ message });
+}
+
 module.exports = {
-    getUserChats: getUserChats,
-    deleteAllUsers: deleteAllUsers,
-    createChat: createChat
+    getUserChats,
+    getUserChatMessages,
+    deleteAllUsers,
+    createChat,
+    createMessage,
 }
