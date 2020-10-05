@@ -8,10 +8,10 @@ import '../styles/auth/auth.css';
 import '../styles/base/base.css';
 
 export const MainPage = (props) => {
-    const {currentChatId, getMessagesByChat, updateCurrentChatId} = useChat();
+    const {currentChatId, getMessagesByChat, updateCurrentChatId, getChatsByUser} = useChat();
     return(
         <ChatContext.Provider value={{
-            currentChatId, getMessagesByChat, updateCurrentChatId
+            currentChatId, getMessagesByChat, updateCurrentChatId, getChatsByUser
         }}>
             <Container fluid className="chat-container">
                 <Row className="chat-row">

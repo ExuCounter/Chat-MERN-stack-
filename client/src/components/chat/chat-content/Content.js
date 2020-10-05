@@ -4,23 +4,19 @@ import {ChatContext} from '../../../context/ChatContext';
 import {useHttp} from '../../../hooks/http.hook';
 
 export const ChatContent = () => {
-    const [chatMessages, setChatMessages] = useState([]);
+    const [chatMessages, setChatMessages] = useState(null);
     const {request} = useHttp();
     const auth = useContext(AuthContext);
     const chat = useContext(ChatContext);
     
     useEffect(()=>{
         async function fetchData() {
-            const data = await request('/chat', 'POST', {id: auth.userId});
-            console.log('User chats'+data);
-        }
-        fetchData()
-    }, [])
-
-    useEffect(()=>{
-        async function fetchData() {
             let data = await chat.getMessagesByChat(chat.currentChatId);
-            setChatMessages(data);
+            if(data !== ''){
+                setChatMessages(data)
+            } else{
+                setChatMessages(null);
+            }
         }
         fetchData();
     }, [chat.currentChatId])
@@ -32,10 +28,14 @@ export const ChatContent = () => {
             </div>
         )
     }
+
     return(
         <ChatContentInner>
             {
-                chatMessages.length == 0 ? <div className='no-messages-yet'>No messages yet</div> :
+                !chat.currentChatId ? 
+                <div className='no-messages-yet'>Select chat for messaging</div> :
+                chatMessages.length == 0 ? 
+                <div className='no-messages-yet'>No messages yet</div> :
                 chatMessages.map((message, index)=>(
                     <div className='chat-message' key={index}>
                         <div className="chat-message-body">

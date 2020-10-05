@@ -12,7 +12,7 @@ export const ChatSidebar = () => {
     
     useEffect(()=>{
         async function fetchData() {
-            let data = await request('/chat', 'POST', {id: auth.userId});
+            let data = await chat.getChatsByUser(auth.userId);
             setChats(data);
         }
         fetchData()
@@ -28,7 +28,7 @@ export const ChatSidebar = () => {
 
     const updateCurrentChatId = (id) => {
         chat.updateCurrentChatId(id);
-        console.log(chats);
+
     }
 
     return(
