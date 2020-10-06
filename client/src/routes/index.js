@@ -25,9 +25,10 @@ export const useRoutes = (isAuthenticated) => {
                 <Route path='/register'>
                     <AuthPage step='register'/>
                 </Route>
-                <Route path='/reset-password'>
+                {/* <Route path='/reset-password'>
                     <AuthPage step='reset-password'/>
-                </Route>
+                </Route> */}
+                <Redirect to='/login'></Redirect>
             </Switch>
         )
     }

@@ -11,7 +11,6 @@ const userRouter = require('./routes/userRouter.js');
 const bodyParser = require('body-parser');
 // Mongo DB
 const MongoClient = require('mongodb').MongoClient;
-const objectId = require('mongodb').ObjectID;
 // Mongoose
 const mongoose = require('mongoose');
 

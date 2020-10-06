@@ -172,8 +172,8 @@ export const RegisterContent = () => {
                 </div>
             </Form>
             <AuthNavigation links={{
-               "login": "Log In",
-               "reset-password": "Forget password ?"
+               "login": "Login ->",
+            //    "reset-password": "Forget password ?"
             }} />
         </React.Fragment>
     )

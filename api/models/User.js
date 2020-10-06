@@ -4,7 +4,8 @@ const objectId = require('mongodb').ObjectID;
 const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }]
+    chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
+    versionKey: false
 })
 
 module.exports = model('User', userSchema);

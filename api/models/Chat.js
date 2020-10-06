@@ -6,7 +6,8 @@ const chatSchema = new Schema({
     receiverId: { type: String },
     lastMessageId: { type: String },
     lastMessageDate: { type: Date },
-    owner: { type: Schema.Types.ObjectId, ref: 'User' }
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    versionKey: false
 })
 
 module.exports = model('Chat', chatSchema);

@@ -1,7 +1,7 @@
-const express = require('express');
 const Chat = require('../models/Chat');
 const Message = require('../models/Message');
-const ObjectID = require('mongodb').ObjectID;
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 async function getUserChats(req, res, next) {
     try {
@@ -21,36 +21,65 @@ async function getUserChatMessages(req, res, next) {
     }
 }
 
-async function deleteAllUsers(req, res, next) {
-    let db = req.app.locals.usersCollection;
-    db.deleteMany({});
+async function deleteAllData(req, res, next) {
+    try {
+        const usersDeteled = await User.deleteMany({});
+        const chatsDeleted = await Chat.deleteMany({});
+        const messagesDeleted = await Message.deleteMany({});
+        if (usersDeteled && chatsDeleted && messagesDeleted) {
+            console.log('All data deleted');
+            res.status(200).send('All data deleted');
+        }
+    } catch (e) {
+        res.status(500).send('Something goes wrong with data clean')
+    }
 }
 
-async function createChat(req, res, next) {
-    // let chat = new Chat({
-    //     senderId: '1112232133213122GGG',
-    //     receiverId: '1113213213211',
-    //     lastMessageId: '2222',
-    //     lastMessageDate: new Date(),
-    //     owner: '5f78e4762ed85046304e7422'
-    // })
-    // chat.save();
+async function createChat(req, res, next, id) {
+    let chat = await new Chat({
+        senderId: '1112232133213122GGG',
+        receiverId: '1113213213211',
+        lastMessageId: '2222',
+        lastMessageDate: new Date(),
+        owner: id
+    })
+    chat.save();
     // res.send({ chat });
+    return chat;
 }
 
-async function createMessage(req, res, next) {
-    let message = new Message({
-        chatId: '5f78e4fb1024a5399c173e05',
-        body: 'Another message2233'
+async function createMessage(req, res, next, id) {
+    let hashedMessage = await bcrypt.hash("Message", 4);
+    let message = await new Message({
+        chatId: id,
+        body: 'Message body ' + hashedMessage
     })
     message.save();
-    res.send({ message });
+    // res.send({ message });
+    return message;
+}
+
+async function createDummyData(req, res, next) {
+    try {
+        let id = '5f7c38fb0f63be2234a2776e';
+        for (let i = 0; i < 5; i++) {
+            let chat = await createChat(req, res, next, id);
+            for (let i = 0; i < Math.random() * 15; i++) {
+                createMessage(req, res, next, chat._id);
+            }
+        }
+        res.status(200).send('Dummy data created successfully');
+    } catch (error) {
+        res.status(500).send('Dummy data create error: ' + error);
+        console.log(error);
+    }
 }
 
 module.exports = {
     getUserChats,
     getUserChatMessages,
-    deleteAllUsers,
+    deleteAllData,
     createChat,
     createMessage,
+    createDummyData
 }
