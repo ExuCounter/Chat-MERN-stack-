@@ -76,6 +76,32 @@ async function createDummyData(req, res, next) {
     }
 }
 
+async function deleteMessage(req, res, next) {
+    try {
+        let messageId = req.body.id;
+        await Message.deleteOne({ _id: messageId });
+        console.log('Message deleted successfully');
+        res.status(200).send('Message deleted successfully, id: ' + messageId);
+    } catch (error) {
+        res.status(500).send('Message delete error ' + error);
+    }
+}
+
+async function editMessage(req, res, next) {
+    try {
+        let messageId = req.body.id;
+        let messageBody = req.body.messageBody;
+        await Message.findOneAndUpdate({ _id: messageId }, {
+            $set: {
+                body: messageBody
+            }
+        })
+        res.status(200).send('Message updated successfully, id: ' + messageId);
+    } catch (error) {
+        res.status(500).send('Update message error ' + error);
+    }
+}
+
 module.exports = {
     getUserChats,
     getUserChatMessages,
