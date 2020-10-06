@@ -32,8 +32,8 @@ export const ChatSidebar = () => {
     return(
         <ChatSidebarInner>
             {
-                chats.map(chat =>(
-                    <SidebarMessage key={chat._id} id={chat._id} chatName={chat.senderId} setChatId={updateCurrentChatId} chatText={'Small Message'}/>
+                chats.map(sidebarChat =>(
+                    <SidebarMessage key={sidebarChat._id} id={sidebarChat._id} active={chat.currentChatId == sidebarChat._id} chatName={sidebarChat.senderId} setChatId={updateCurrentChatId} chatText={'Small Message'}/>
                 ))
             }
         </ChatSidebarInner>

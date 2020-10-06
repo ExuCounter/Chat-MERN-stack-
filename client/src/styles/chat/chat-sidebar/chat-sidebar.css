@@ -14,6 +14,15 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.active-sidebar-message {
+    background-color: #9579d5;
+    background-image: linear-gradient(275deg, #FFF 0%, #9087f6 74%);
+}
+
+.active-sidebar-message span {
+    color: #FFF !important;
+}
+
 .chat-sidebar-message .chat-name {
     margin-bottom: 0rem;
     text-decoration: none;

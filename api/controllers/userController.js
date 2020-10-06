@@ -68,6 +68,7 @@ async function createDummyData(req, res, next) {
                 createMessage(req, res, next, chat._id);
             }
         }
+        console.log('Dummy data created successfully');
         res.status(200).send('Dummy data created successfully');
     } catch (error) {
         res.status(500).send('Dummy data create error: ' + error);
