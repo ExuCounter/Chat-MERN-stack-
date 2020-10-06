@@ -3,7 +3,6 @@
     background-image: linear-gradient(315deg, #b8c6db 0%, #706fd3 74%);
     color: #2C3A47;
     font-size: 1.5rem;
-    padding: 2rem;
 }
 
 .chat-message {
@@ -21,4 +20,31 @@
 
 .no-messages-yet {
     color: #FFFFFF;
+    padding: 2rem;
+}
+
+
+/* Chat Header */
+
+.chat-content-header,
+.chat-content-footer {
+    background-color: #FFF;
+    padding: 2rem;
+}
+
+
+/* Chat Messages Content */
+
+.chat-content-body {
+    padding: 2rem;
+}
+
+
+/* Chat Footer */
+
+.chat-content-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
 }

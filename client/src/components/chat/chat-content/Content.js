@@ -1,4 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react';
+import {ChatHeader} from './Header';
+import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
 
 export const ChatContent = () => {
@@ -32,13 +34,19 @@ export const ChatContent = () => {
                 <div className='no-messages-yet'>Select chat for messaging</div> :
                 chatMessages.length === 0 ? 
                 <div className='no-messages-yet'>No messages yet</div> :
-                chatMessages.map((message, index)=>(
-                    <div className='chat-message' key={index}>
-                        <div className="chat-message-body">
-                            {message.body}
-                        </div>
+                <React.Fragment>
+                    <ChatHeader/>
+                    <div className='chat-content-body'>
+                        {chatMessages.map((message, index)=>(
+                            <div className='chat-message' key={index}>
+                                <div className="chat-message-body">
+                                    {message.body}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))
+                    <ChatFooter/>
+                </React.Fragment>
             }
         </ChatContentInner>
     )
