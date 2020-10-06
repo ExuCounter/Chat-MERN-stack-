@@ -5,7 +5,7 @@ function empty() {}
 export const AuthContext = createContext({
     token: null,
     userId: null,
-    login: null,
-    logout: null,
+    login: empty,
+    logout: empty,
     isAuthenticated: false
 })

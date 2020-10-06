@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 
 export const useChat = () => {
@@ -12,7 +12,7 @@ export const useChat = () => {
 
     const getMessagesByChat = async(id) => {
         const data = await request(`/chat/${id}`, "POST", { id });
-        console.log(`Current chat messages, id: ${id} ` + data == undefined ? 'No messages' : 'Count of messages in this chat: ' + data.length);
+        console.log(`Current chat messages, id: ${id} ` + data === undefined ? 'No messages' : 'Count of messages in this chat: ' + data.length);
         return data;
     }
 

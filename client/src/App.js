@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import {useRoutes} from './routes';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {AuthContext} from '../src/context/AuthContext';
 import {useAuth} from '../src/hooks/auth.hook';
-import {useHttp} from '../src/hooks/http.hook';
 
 function App() {
   const {login, logout, token, userId} = useAuth();

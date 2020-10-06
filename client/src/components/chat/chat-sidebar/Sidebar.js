@@ -1,11 +1,9 @@
 import React, {useEffect, useContext, useState} from 'react';
 import {AuthContext} from '../../../context/AuthContext';
 import {ChatContext} from '../../../context/ChatContext';
-import {useHttp} from '../../../hooks/http.hook';
 import {SidebarMessage} from './Message';
 
 export const ChatSidebar = () => {
-    const {request} = useHttp();
     const [chats, setChats] = useState([]);
     const auth = useContext(AuthContext);
     const chat = useContext(ChatContext);
@@ -13,10 +11,11 @@ export const ChatSidebar = () => {
     useEffect(()=>{
         async function fetchData() {
             let data = await chat.getChatsByUser(auth.userId);
+            console.log(data);
             setChats(data);
         }
         fetchData()
-    }, [])
+    }, []);
 
     const ChatSidebarInner = ({children}) => {
         return(
@@ -28,7 +27,6 @@ export const ChatSidebar = () => {
 
     const updateCurrentChatId = (id) => {
         chat.updateCurrentChatId(id);
-
     }
 
     return(

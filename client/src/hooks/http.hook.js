@@ -14,7 +14,7 @@ export const useHttp = () => {
             let response = await fetch(url, { method, body, headers });
             let status = response.status;
             let data = await response.text();
-            if (status == 400) {
+            if (status === 400) {
                 setError(data);
             }
             try {

@@ -1,15 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Form, Button, Alert} from 'react-bootstrap';
+import {Form, Button} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {useHttp} from '../../../hooks/http.hook';
-import {useAuth} from '../../../hooks/auth.hook';
 import {isValidEmail} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
 import {AuthContext} from '../../../context/AuthContext';
 
 export const RegisterContent = () => {
     const auth = useContext(AuthContext);
-    const {loading, error, request, clearError} = useHttp();
+    const {error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
         email: '', password: ''
@@ -26,7 +25,7 @@ export const RegisterContent = () => {
             alert(error);
             clearError();
         }
-    }, [error])
+    }, [error, clearError])
 
     // Node elements 
 
@@ -34,7 +33,6 @@ export const RegisterContent = () => {
     const passwordsContainer = document.querySelector('.register-passwords');
     const buttonsContainer = document.querySelector('.form-buttons');
     const submitFormButton = document.querySelector('.submit-form-btn');
-    const registerPasswordValidation = document.querySelector('.register-password__validation');
 
     // Steps handlers 
 
@@ -73,7 +71,7 @@ export const RegisterContent = () => {
 
     const registerHandler = async (e) => {
         e.preventDefault(e);
-        if(isValidEmail(form.email) && step == 'first-step'){
+        if(isValidEmail(form.email) && step === 'first-step'){
             firstStepHandler();
             document.querySelector('.register-password').addEventListener('input', (e)=>{
                 if(e.target.value !== ''){
@@ -102,7 +100,7 @@ export const RegisterContent = () => {
             })
             document.querySelector('.register-repeat-password').addEventListener('input', (e)=>{
                 if(e.target.value !== ''){
-                    if(e.target.value == document.querySelector('.register-password').value){
+                    if(e.target.value === document.querySelector('.register-password').value){
                         document.querySelector('.pass-equal').classList.add('done');
                     }
                     else{
@@ -112,7 +110,7 @@ export const RegisterContent = () => {
                 }
             })
         }
-        if (isValidEmail(form.email) && step == 'second-step') {
+        if (isValidEmail(form.email) && step === 'second-step') {
             const data = await request('/register', 'POST', {...form });
             if(data){
                 const data = await request('/login', 'POST', {...form});
@@ -125,7 +123,7 @@ export const RegisterContent = () => {
 
     const backToFirstStep = (e) => {
         e.preventDefault();
-        if(step == 'second-step'){
+        if(step === 'second-step'){
             backToFirstStepHandler();
         }
     }

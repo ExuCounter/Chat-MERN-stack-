@@ -8,7 +8,7 @@ import {useHttp} from '../../../hooks/http.hook';
 
 export const LoginContent = () => {
     const auth = useContext(AuthContext);
-    const {loading, error, request, clearError} = useHttp();
+    const {error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
         email: '', password: ''
@@ -26,7 +26,7 @@ export const LoginContent = () => {
             alert(error);
             clearError();
         }
-    }, [error])
+    }, [error, clearError])
 
     // Node Elements
 
@@ -58,10 +58,10 @@ export const LoginContent = () => {
         e.preventDefault(e);
         // const data = await request('/register', 'POST', {...form});
         // console.log('Data' + data);
-        if(isValidEmail(form.email) && step=='first-step'){
+        if(isValidEmail(form.email) && step === 'first-step'){
             firstStepHandler();
         }
-        if(isValidEmail(form.email) && step=='second-step'){
+        if(isValidEmail(form.email) && step === 'second-step'){
             const data = await request('/login', 'POST', {...form });
             auth.login(data.token, data.userId);
             console.log("Data from the server: " + data);
@@ -70,7 +70,7 @@ export const LoginContent = () => {
 
     const backToFirstStep = (e) => {
         e.preventDefault();
-        if(step=='second-step'){
+        if(step === 'second-step'){
             backToFirstStepHandler();
         }
     }

@@ -13,6 +13,7 @@ export const useRoutes = (isAuthenticated) => {
                 <Route path='/chat/:id'>
                     <MainPage/>
                 </Route>
+                <Redirect to='/chat'></Redirect>
             </Switch>
         )
     } else{
