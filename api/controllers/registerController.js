@@ -6,14 +6,14 @@ const Chat = require('../models/Chat');
 
 async function register(req, res) {
     try {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 12);
-        const candidate = await User.findOne({ email });
+        const candidate = await User.findOne({ username });
         if (candidate) {
             console.log(candidate);
             res.status(400).send('Such user already exists');
         } else {
-            const user = new User({ email, password: hashedPassword });
+            const user = new User({ username, password: hashedPassword });
             user.save();
             res.status(200).send({ user });
         }

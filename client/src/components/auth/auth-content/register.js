@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {AuthNavigation} from './Navigation';
 import {useHttp} from '../../../hooks/http.hook';
-import {isValidEmail} from '../../../helpers/auth/auth-helpers';
+import {isValidUsername} from '../../../helpers/auth/auth-helpers';
 import leftArrowIcon from '../../../assets/images/left-arrow.svg';
 import {AuthContext} from '../../../context/AuthContext';
 
@@ -11,7 +11,7 @@ export const RegisterContent = () => {
     const {error, request, clearError} = useHttp();
     const [step, setStep] = useState('first-step');
     const [form, setForm] = useState({
-        email: '', password: ''
+        username: '', password: ''
     })
 
     const updateForm = event => {
@@ -29,7 +29,7 @@ export const RegisterContent = () => {
 
     // Node elements 
 
-    const emailsContainer = document.querySelector('.register-emails');
+    const usernamesContainer = document.querySelector('.register-usernames');
     const passwordsContainer = document.querySelector('.register-passwords');
     const buttonsContainer = document.querySelector('.form-buttons');
     const submitFormButton = document.querySelector('.submit-form-btn');
@@ -37,22 +37,22 @@ export const RegisterContent = () => {
     // Steps handlers 
 
     const firstStepHandler = () => {
-        emailsContainer.classList.add('mb-3');
+        usernamesContainer.classList.add('mb-3');
         passwordsContainer.classList.remove('hide-first-step');
         buttonsContainer.classList.remove('hide-first-step');
         submitFormButton.innerHTML = `Register me!`;
-        emailsContainer.querySelector('input').classList.add('input-filled');
-        emailsContainer.querySelector('input').setAttribute('disabled', 'disabled');
+        usernamesContainer.querySelector('input').classList.add('input-filled');
+        usernamesContainer.querySelector('input').setAttribute('disabled', 'disabled');
         checkSubmitButton();
         setStep('second-step');
     }
 
     const backToFirstStepHandler = () => {
-        emailsContainer.classList.remove('mb-3');
+        usernamesContainer.classList.remove('mb-3');
         passwordsContainer.classList.add('hide-first-step');
         buttonsContainer.classList.add('hide-first-step');
-        emailsContainer.querySelector('input').classList.remove('input-filled');
-        emailsContainer.querySelector('input').removeAttribute('disabled', 'disabled');
+        usernamesContainer.querySelector('input').classList.remove('input-filled');
+        usernamesContainer.querySelector('input').removeAttribute('disabled', 'disabled');
         submitFormButton.innerHTML = `Continue`;
         submitFormButton.removeAttribute('disabled', 'disabled');
         setStep('first-step');
@@ -71,7 +71,7 @@ export const RegisterContent = () => {
 
     const registerHandler = async (e) => {
         e.preventDefault(e);
-        if(isValidEmail(form.email) && step === 'first-step'){
+        if(isValidUsername(form.username) && step === 'first-step'){
             firstStepHandler();
             document.querySelector('.register-password').addEventListener('input', (e)=>{
                 if(e.target.value !== ''){
@@ -110,7 +110,7 @@ export const RegisterContent = () => {
                 }
             })
         }
-        if (isValidEmail(form.email) && step === 'second-step') {
+        if (isValidUsername(form.username) && step === 'second-step') {
             const data = await request('/register', 'POST', {...form });
             if(data){
                 const data = await request('/login', 'POST', {...form});
@@ -134,10 +134,10 @@ export const RegisterContent = () => {
                 Register
             </h1>
             <Form action="/register" method="POST" className='auth-form'>
-                <div className='register-emails'>
-                    <Form.Group className="register-email mb-0">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="example@gmail.com" onChange={updateForm}/>
+                <div className='register-usernames'>
+                    <Form.Group className="register-username mb-0">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" name="username" placeholder="Some cool username" onChange={updateForm}/>
                     </Form.Group>
                 </div>
                 <div className="register-passwords hide-first-step">

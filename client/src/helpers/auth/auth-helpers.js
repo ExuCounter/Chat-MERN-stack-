@@ -1,13 +1,15 @@
-const isValidEmail = (email) => {
-    if (email.match((/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))) {
-        console.log('Email valid');
+const isValidUsername = (value) => {
+    const username = value;
+    console.log(username);
+    if (!username.includes(' ')) {
+        console.log('Username valid');
         return true;
     } else {
-        console.log('Email invalid')
+        console.log('Username invalid')
         return false;
     }
 }
 
 export {
-    isValidEmail
+    isValidUsername
 }
