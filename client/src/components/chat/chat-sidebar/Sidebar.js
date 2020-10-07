@@ -3,7 +3,7 @@ import {AuthContext} from '../../../context/AuthContext';
 import {ChatContext} from '../../../context/ChatContext';
 import {SidebarMessage} from './Message';
 
-export const ChatSidebar = () => {
+export const ChatSidebar = (props) => {
     const [chats, setChats] = useState([]);
     const auth = useContext(AuthContext);
     const chat = useContext(ChatContext);
@@ -16,11 +16,6 @@ export const ChatSidebar = () => {
         fetchData()
     }, []);
 
-    
-    const updateCurrentChatId = (id) => {
-        chat.updateCurrentChatId(id);
-    }
-
     const ChatSidebarInner = ({children}) => {
         return(
             <div className='chat-sidebar'>
@@ -28,12 +23,12 @@ export const ChatSidebar = () => {
             </div>
         )
     }
-    
+
     return(
         <ChatSidebarInner>
             {
                 chats.map(sidebarChat =>(
-                    <SidebarMessage key={sidebarChat._id} id={sidebarChat._id} active={chat.currentChatId == sidebarChat._id} chatName={sidebarChat.senderId} setChatId={updateCurrentChatId} chatText={'Small Message'}/>
+                    <SidebarMessage key={sidebarChat._id} id={sidebarChat._id} active={props.chatId == sidebarChat._id} chatName={'1'} chatText={'1'}/>
                 ))
             }
         </ChatSidebarInner>

@@ -5,7 +5,7 @@ function noop() {
 }
 
 export const ChatContext = createContext({
-    currentChatId: null,
     getMessagesByChat: noop,
-    updateCurrentChatId: noop
+    getChatsByUser: noop,
+    getUsernameById: noop
 })

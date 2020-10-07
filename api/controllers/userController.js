@@ -21,6 +21,15 @@ async function getUserChatMessages(req, res, next) {
     }
 }
 
+async function getUsernameById(req, res, next) {
+    try {
+        let user = await User.findOne({ _id: req.body.id });
+        res.status(200).send({ username: user.username });
+    } catch (err) {
+        res.status(500).send('No such chat');
+    }
+}
+
 async function deleteAllData(req, res, next) {
     try {
         const usersDeteled = await User.deleteMany({});
@@ -37,7 +46,7 @@ async function deleteAllData(req, res, next) {
 
 async function createChat(req, res, next, id) {
     let chat = await new Chat({
-        senderId: '1112232133213122GGG',
+        senderId: '5f7cce692452b014805a36af',
         receiverId: '1113213213211',
         lastMessageId: '2222',
         lastMessageDate: new Date(),
@@ -61,7 +70,7 @@ async function createMessage(req, res, next, id) {
 
 async function createDummyData(req, res, next) {
     try {
-        let id = '5f7c38fb0f63be2234a2776e';
+        let id = '5f7cce692452b014805a36af';
         for (let i = 0; i < 5; i++) {
             let chat = await createChat(req, res, next, id);
             for (let i = 0; i < Math.random() * 15; i++) {
@@ -108,5 +117,6 @@ module.exports = {
     deleteAllData,
     createChat,
     createMessage,
-    createDummyData
+    createDummyData,
+    getUsernameById
 }

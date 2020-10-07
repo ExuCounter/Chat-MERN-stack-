@@ -3,21 +3,24 @@ import {ChatHeader} from './Header';
 import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
 
-export const ChatContent = () => {
+export const ChatContent = (props) => {
     const [chatMessages, setChatMessages] = useState(null);
     const chat = useContext(ChatContext);
-    
+
     useEffect(()=>{
         async function fetchData() {
-            let data = await chat.getMessagesByChat(chat.currentChatId);
-            if(data !== ''){
-                setChatMessages(data)
-            } else{
-                setChatMessages(null);
+            if(props.chatId){
+                let data = await chat.getMessagesByChat(props.chatId);
+                console.log(data);
+                if(data !== ''){
+                    setChatMessages(data)
+                } else{
+                    setChatMessages(null);
+                }
             }
         }
         fetchData();
-    }, [chat.currentChatId])
+    }, [props.chatId])
 
     const ChatContentInner = ({children}) => {
         return(
@@ -30,9 +33,9 @@ export const ChatContent = () => {
     return(
         <ChatContentInner>
             {
-                !chat.currentChatId ? 
+                !props.chatId ? 
                 <div className='no-messages-yet'>Select chat for messaging</div> :
-                chatMessages.length === 0 ? 
+                chatMessages === null ? 
                 <div className='no-messages-yet'>No messages yet</div> :
                 <React.Fragment>
                     <ChatHeader/>

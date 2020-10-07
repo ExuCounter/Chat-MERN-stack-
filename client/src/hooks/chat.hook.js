@@ -2,13 +2,7 @@ import { useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 
 export const useChat = () => {
-    const [currentChatId, setCurrentChatId] = useState(null);
     const { request } = useHttp();
-
-    const updateCurrentChatId = (id) => {
-        setCurrentChatId(id);
-        console.log('Current chat id:' + id);
-    }
 
     const getMessagesByChat = async(id) => {
         const data = await request(`/chat/${id}`, "POST", { id });
@@ -22,5 +16,11 @@ export const useChat = () => {
         return data;
     }
 
-    return { currentChatId, getMessagesByChat, updateCurrentChatId, getChatsByUser };
+    const getUsernameById = async(id) => {
+        const data = await request(`/chat/user/get-login-by-id`, "PUT", { id });
+        console.log(data);
+        return data;
+    }
+
+    return { getMessagesByChat, getChatsByUser, getUsernameById };
 }

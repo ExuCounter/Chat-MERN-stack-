@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {ChatSidebar} from '../components/chat/chat-sidebar/Sidebar';
 import {ChatContent} from '../components/chat/chat-content/Content';
 import {Row, Col, Container} from 'react-bootstrap';
@@ -8,18 +8,19 @@ import '../styles/auth/auth.css';
 import '../styles/base/base.css';
 
 export const MainPage = (props) => {
-    const {currentChatId, getMessagesByChat, updateCurrentChatId, getChatsByUser} = useChat();
+    const {getMessagesByChat, getChatsByUser, getUsernameById} = useChat();
+    const chatId = !!props.match ? props.match.params.id : '';
     return(
         <ChatContext.Provider value={{
-            currentChatId, getMessagesByChat, updateCurrentChatId, getChatsByUser
+            getMessagesByChat, getChatsByUser, getUsernameById
         }}>
             <Container fluid className="chat-container">
                 <Row className="chat-row">
                     <Col xs={3} className='p-0 chat-col'>
-                        <ChatSidebar/>
+                        <ChatSidebar chatId={chatId}/>
                     </Col>
                     <Col xs={9} className='p-0 chat-col'>
-                        <ChatContent/>
+                        <ChatContent chatId={chatId}/>
                     </Col>
                 </Row>
             </Container>
