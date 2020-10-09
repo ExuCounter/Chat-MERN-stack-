@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 async function getUserChats(req, res, next) {
     try {
-        let chats = await Chat.find({ owner: req.body.id });
+        let chats = await Chat.find({ senderId: req.body.id });
         res.status(200).send(chats);
     } catch (err) {
         res.status(500).send('Something goes wrong');
@@ -32,10 +32,10 @@ async function getUsernameById(req, res, next) {
 
 async function deleteAllData(req, res, next) {
     try {
-        const usersDeteled = await User.deleteMany({});
+        // const usersDeteled = await User.deleteMany({});
         const chatsDeleted = await Chat.deleteMany({});
         const messagesDeleted = await Message.deleteMany({});
-        if (usersDeteled && chatsDeleted && messagesDeleted) {
+        if (chatsDeleted && messagesDeleted) {
             console.log('All data deleted');
             res.status(200).send('All data deleted');
         }
@@ -46,8 +46,8 @@ async function deleteAllData(req, res, next) {
 
 async function createChat(req, res, next, id) {
     let chat = await new Chat({
-        senderId: '5f7cce692452b014805a36af',
-        receiverId: '1113213213211',
+        senderId: '5f7e1fce0efde220947b6246',
+        receiverId: '5f7e1fce0efde220947b6246',
         lastMessageId: '2222',
         lastMessageDate: new Date(),
         owner: id
@@ -70,10 +70,10 @@ async function createMessage(req, res, next, id) {
 
 async function createDummyData(req, res, next) {
     try {
-        let id = '5f7cce692452b014805a36af';
-        for (let i = 0; i < 5; i++) {
+        let id = '5f7e1fce0efde220947b6246';
+        for (let i = 0; i < 2; i++) {
             let chat = await createChat(req, res, next, id);
-            for (let i = 0; i < Math.random() * 15; i++) {
+            for (let i = 0; i < Math.random() * 5; i++) {
                 createMessage(req, res, next, chat._id);
             }
         }

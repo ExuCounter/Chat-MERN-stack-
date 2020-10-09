@@ -2,11 +2,10 @@ const { Schema, model, Types } = require('mongoose');
 const ObjectId = require('mongodb').ObjectID;
 
 const chatSchema = new Schema({
-    senderId: { type: String },
-    receiverId: { type: String },
+    senderId: { type: Schema.Types.ObjectId, ref: 'User' },
+    receiverId: { type: Schema.Types.ObjectId, ref: 'User' },
     lastMessageId: { type: String },
     lastMessageDate: { type: Date },
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
     versionKey: false
 })
 

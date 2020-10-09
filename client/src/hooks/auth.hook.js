@@ -22,6 +22,7 @@ export const useAuth = () => {
         if (storageData && storageData.token) {
             login(storageData.token, storageData.userId);
         }
+        setTokenLoading(false);
     }, [])
 
     return { login, token, userId, logout, tokenLoading };

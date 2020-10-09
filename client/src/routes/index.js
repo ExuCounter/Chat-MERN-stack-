@@ -14,11 +14,17 @@ export const useRoutes = (isAuthenticated, tokenLoading) => {
                     <Route path='/chat/:id' render={(props) => {
                         return ( <MainPage {...props } /> )
                     }} />
+                    <Redirect to='chat' exact></Redirect>
                 </Switch>
             )
         } else{
+            console.log(true);
             return(
                 <Switch>
+                    <Redirect from='/login/:id' to='/login/' exact>
+                    </Redirect>
+                    <Redirect from='/register/:id' to='/register/' exact>
+                    </Redirect>
                     <Route path='/login'>
                         <AuthPage step='login'/>
                     </Route>
@@ -28,7 +34,8 @@ export const useRoutes = (isAuthenticated, tokenLoading) => {
                     {/* <Route path='/reset-password'>
                         <AuthPage step='reset-password'/>
                     </Route> */}
-                    <Redirect to='/login'></Redirect>
+                    <Redirect to='/login/' exact>
+                    </Redirect>
                 </Switch>
             )
         }
