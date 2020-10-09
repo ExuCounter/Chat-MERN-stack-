@@ -8,7 +8,7 @@ userRouter.put('/user/get-login-by-id', getUsernameById);
 
 userRouter.put('/create-chat', createChat);
 userRouter.put('/create-message', createMessage);
-userRouter.get('/delete', deleteAllData);
-userRouter.get('/create-dummy-data', createDummyData);
+userRouter.delete('/delete', deleteAllData);
+userRouter.put('/create-dummy-data', createDummyData);
 
 module.exports = userRouter;

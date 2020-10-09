@@ -14,6 +14,9 @@ export const useRoutes = (isAuthenticated, tokenLoading) => {
                     <Route path='/chat/:id' render={(props) => {
                         return ( <MainPage {...props } /> )
                     }} />
+                    <Route path='/create-chat' exact>
+                        <MainPage action='create-chat'/>
+                    </Route>
                     <Redirect to='/chat' exact></Redirect>
                 </Switch>
             )

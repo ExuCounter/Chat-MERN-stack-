@@ -139,3 +139,41 @@
     position: absolute;
     font-size: 1.6rem !important;
 }
+
+
+/* Create chat button */
+
+.chat-sidebar-create-btn {
+    border-radius: 50% !important;
+    margin-right: auto;
+    padding: 0 !important;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background-color: #9087f6;
+}
+
+.chat-sidebar-create-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 1rem;
+}
+
+
+/* Start action screen */
+
+.start-action-screen {
+    background-color: #000000;
+    background-image: linear-gradient(315deg, #b8c6db 0%, #706fd3 74%);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-action-screen__text {
+    color: #FFF !important;
+    font-size: 2rem;
+    font-family: 'Quicksand', sans-serif;
+}

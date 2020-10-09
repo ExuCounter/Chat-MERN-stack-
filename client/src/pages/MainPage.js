@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import {ChatSidebar} from '../components/chat/chat-sidebar/Sidebar';
 import {ChatContent} from '../components/chat/chat-content/Content';
+import {ChatAction} from '../components/chat/chat-action/Action';
 import {Row, Col, Container} from 'react-bootstrap';
 import {ChatContext} from '../context/ChatContext';
 import {useChat} from '../hooks/chat.hook';
@@ -10,6 +11,17 @@ import '../styles/base/base.css';
 export const MainPage = (props) => {
     const {getMessagesByChat, getChatsByUser, getUsernameById} = useChat();
     const chatId = !!props.match ? props.match.params.id : '';
+    const Template = () => {
+        if(chatId){
+            return(
+                <ChatContent chatId={chatId}/>
+            )
+        } else {
+            return(
+                <ChatAction action={props.action} />
+            )
+        }
+    }
     return(
         <ChatContext.Provider value={{
             getMessagesByChat, getChatsByUser, getUsernameById
@@ -20,7 +32,7 @@ export const MainPage = (props) => {
                         <ChatSidebar chatId={chatId}/>
                     </Col>
                     <Col xs={9} className='p-0 chat-col'>
-                        <ChatContent chatId={chatId}/>
+                        <Template />
                     </Col>
                 </Row>
             </Container>

@@ -33,6 +33,7 @@ export const ChatContent = (props) => {
         )
     }
 
+
     return(
         <ChatContentInner>
             <Button className='chat-content-logout' onClick={auth.logout}>Logout</Button>
