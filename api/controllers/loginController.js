@@ -15,7 +15,7 @@ async function login(req, res) {
                 let token = jwt.sign({ id: 'id' }, config.secretKey, { expiresIn: '1h' });
                 res.status(200).send({ token, userId: user._id });
             } else {
-                res.status(400).send('No such user or incorrect email');
+                res.status(400).send('No such user or incorrect data');
             }
         }
 

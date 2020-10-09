@@ -14,11 +14,10 @@ export const useRoutes = (isAuthenticated, tokenLoading) => {
                     <Route path='/chat/:id' render={(props) => {
                         return ( <MainPage {...props } /> )
                     }} />
-                    <Redirect to='chat' exact></Redirect>
+                    <Redirect to='/chat' exact></Redirect>
                 </Switch>
             )
         } else{
-            console.log(true);
             return(
                 <Switch>
                     <Redirect from='/login/:id' to='/login/' exact>

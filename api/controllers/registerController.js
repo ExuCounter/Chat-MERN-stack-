@@ -15,7 +15,7 @@ async function register(req, res) {
         } else {
             const user = new User({ username, password: hashedPassword });
             user.save();
-            res.status(200).send({ user });
+            res.status(200).send(user);
         }
     } catch (e) {
         res.status(500).send('Something went wrong with registration. Please try again');

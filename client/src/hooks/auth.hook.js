@@ -14,7 +14,10 @@ export const useAuth = () => {
     }
 
     const logout = () => {
-
+        setToken(null);
+        setUserId(null);
+        localStorage.removeItem(storageName, null);
+        setTokenLoading(false);
     }
 
     useEffect(() => {

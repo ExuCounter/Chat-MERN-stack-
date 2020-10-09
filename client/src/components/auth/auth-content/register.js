@@ -112,7 +112,6 @@ export const RegisterContent = () => {
         }
         if (isValidUsername(form.username) && step === 'second-step') {
             const data = await request('/register', 'POST', {...form });
-            console.log(data);
             if(data){
                 const data = await request('/login', 'POST', {...form});
                 if(data){

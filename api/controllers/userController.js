@@ -32,9 +32,10 @@ async function getUsernameById(req, res, next) {
 
 async function deleteAllData(req, res, next) {
     try {
-        // const usersDeteled = await User.deleteMany({});
+        const usersDeleted = await User.deleteMany({});
+        const chatsDeleted = await Chat.deleteMany({});
         const messagesDeleted = await Message.deleteMany({});
-        if (messagesDeleted) {
+        if (usersDeleted && chatsDeleted && messagesDeleted) {
             console.log('All data deleted');
             res.status(200).send('All data deleted');
         }
