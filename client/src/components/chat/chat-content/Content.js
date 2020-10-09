@@ -43,12 +43,13 @@ export const ChatContent = (props) => {
                         {chatMessages.map((message, index)=>(
                             <div className='chat-message' key={index}>
                                 <div className="chat-message-body">
+                                    {message.files}
                                     {message.body}
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <ChatFooter/>
+                    <ChatFooter chatId={props.chatId}/>
                 </React.Fragment>
             }
         </ChatContentInner>

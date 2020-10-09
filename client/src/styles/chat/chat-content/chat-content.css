@@ -26,8 +26,7 @@
 
 /* Chat Header */
 
-.chat-content-header,
-.chat-content-footer {
+.chat-content-header {
     background-color: #FFF;
     padding: 2rem;
 }
@@ -47,4 +46,86 @@
     bottom: 0;
     right: 0;
     width: 100%;
+    background-color: #FFF;
+    height: 7rem;
+}
+
+.chat-content-footer__form {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.chat-content-footer__form>div {
+    height: 100%;
+    display: flex;
+}
+
+.chat-content-footer__files {
+    flex: 0 0 10%;
+}
+
+.chat-content-footer__textarea {
+    flex: 0 1 70%;
+    height: 100%;
+}
+
+.chat-content-footer__textarea textarea {
+    margin-bottom: 0;
+    height: 100%;
+    resize: none;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 1rem 1.5rem;
+}
+
+.chat-content-footer__send {
+    flex: 0 0 20%;
+    height: 100%;
+}
+
+.chat-content-footer__send-button,
+.chat-content-footer__files-button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none !important;
+    background-color: #e2daff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.chat-content-footer__send-button span,
+.chat-content-footer__files-button span {
+    margin-right: 1rem;
+}
+
+.form-upload-icon,
+.form-send-icon {
+    max-width: 2.7rem;
+    height: 2.7rem;
+}
+
+
+/* Form Textarea Scrollbar */
+
+.chat-content-footer__textarea textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.chat-content-footer__textarea textarea::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.chat-content-footer__textarea textarea::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #e2e2e2;
 }

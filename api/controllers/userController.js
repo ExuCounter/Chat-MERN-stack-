@@ -33,9 +33,8 @@ async function getUsernameById(req, res, next) {
 async function deleteAllData(req, res, next) {
     try {
         // const usersDeteled = await User.deleteMany({});
-        const chatsDeleted = await Chat.deleteMany({});
         const messagesDeleted = await Message.deleteMany({});
-        if (chatsDeleted && messagesDeleted) {
+        if (messagesDeleted) {
             console.log('All data deleted');
             res.status(200).send('All data deleted');
         }
@@ -57,15 +56,17 @@ async function createChat(req, res, next, id) {
     return chat;
 }
 
-async function createMessage(req, res, next, id) {
-    let hashedMessage = await bcrypt.hash("Message", 4);
+async function createMessage(req, res, next) {
+    const { chatId, senderId, files, body } = req.body;
     let message = await new Message({
-        chatId: id,
-        body: 'Message body ' + hashedMessage
+        chatId,
+        senderId,
+        files,
+        body
     })
     message.save();
-    // res.send({ message });
-    return message;
+    res.send({ message });
+    // return message;
 }
 
 async function createDummyData(req, res, next) {

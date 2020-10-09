@@ -27,7 +27,7 @@ export const ChatSidebar = (props) => {
 
     
 
-    const renderedChats = chats.map((sidebarChat, index)=>{
+    const renderedChats = chats.map((sidebarChat)=>{
         return(
             <SidebarMessage key={sidebarChat._id} id={sidebarChat._id} active={props.chatId == sidebarChat._id} chatName={chatOwners.username} chatText={'last message'}/>
         )
