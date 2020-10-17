@@ -22,5 +22,11 @@ export const useChat = () => {
         return data;
     }
 
-    return { getMessagesByChat, getChatsByUser, getUsernameById };
+    const getChatInfo = async(id) => {
+        const data = await request(`/chat/get-chat-info`, "POST", { id });
+        console.log(data);
+        return data;
+    }
+
+    return { getMessagesByChat, getChatsByUser, getUsernameById, getChatInfo };
 }

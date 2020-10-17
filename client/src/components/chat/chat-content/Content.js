@@ -1,5 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react';
 import {Button} from 'react-bootstrap';
+import {useHttp} from '../../../hooks/http.hook';
 import {ChatHeader} from './Header';
 import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
@@ -7,13 +8,15 @@ import {AuthContext} from '../../../context/AuthContext';
 
 export const ChatContent = (props) => {
     const [chatMessages, setChatMessages] = useState(null);
+    const {request} = useHttp(); 
     const auth = useContext(AuthContext);
     const chat = useContext(ChatContext);
 
     useEffect(()=>{
         async function fetchData() {
+            console.log(props.chatId);
             if(props.chatId){
-                let data = await chat.getMessagesByChat(props.chatId);
+                const data = await request(`/chat/${props.chatId}`, "POST", { id: props.chatId }); 
                 console.log(data);
                 if(data !== ''){
                     setChatMessages(data)
