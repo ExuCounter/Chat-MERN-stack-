@@ -6,7 +6,7 @@ import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
 import {AuthContext} from '../../../context/AuthContext';
 
-export const ChatContent = (props) => {
+export const ChatContent = ({chatId}) => {
     const [chatMessages, setChatMessages] = useState(null);
     const {request} = useHttp(); 
     const auth = useContext(AuthContext);
@@ -14,9 +14,9 @@ export const ChatContent = (props) => {
 
     useEffect(()=>{
         async function fetchData() {
-            console.log(props.chatId);
-            if(props.chatId){
-                const data = await request(`/chat/${props.chatId}`, "POST", { id: props.chatId }); 
+            console.log(chatId);
+            if(chatId){
+                const data = await request(`/chat/${chatId}`, "POST", { id: chatId }); 
                 console.log(data);
                 if(data !== ''){
                     setChatMessages(data)
@@ -26,7 +26,7 @@ export const ChatContent = (props) => {
             }
         }
         fetchData();
-    }, [props.chatId])
+    }, [chatId])
 
     const ChatContentInner = ({children}) => {
         return(
@@ -41,12 +41,12 @@ export const ChatContent = (props) => {
         <ChatContentInner>
             <Button className='chat-content-logout' onClick={auth.logout}>Logout</Button>
             {
-                !props.chatId ? 
+                !chatId ? 
                 <div className='no-messages-yet'>Select chat for messaging</div> :
                 chatMessages === null ? 
                 <div className='no-messages-yet'>No messages yet</div> :
                 <React.Fragment>
-                    <ChatHeader/>
+                    <ChatHeader chatId={chatId}/>
                     <div className='chat-content-body'>
                         {chatMessages.map((message, index)=>(
                             <div className='chat-message' key={index}>
@@ -57,7 +57,7 @@ export const ChatContent = (props) => {
                             </div>
                         ))}
                     </div>
-                    <ChatFooter chatId={props.chatId}/>
+                    <ChatFooter chatId={chatId}/>
                 </React.Fragment>
             }
         </ChatContentInner>
