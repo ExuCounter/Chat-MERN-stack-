@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useState} from 'react';
 import {ChatSidebar} from '../components/chat/chat-sidebar/Sidebar';
 import {ChatContent} from '../components/chat/chat-content/Content';
 import {ChatAction} from '../components/chat/chat-action/Action';
@@ -7,6 +7,7 @@ import '../styles/auth/auth.css';
 import '../styles/base/base.css';
 
 export const MainPage = (props) => {
+    const [chats, setChats] = useState([]);
     const chatId = !!props.match ? props.match.params.id : '';
     const Template = () => {
         if(chatId){
@@ -23,7 +24,7 @@ export const MainPage = (props) => {
         <Container fluid className="chat-container">
             <Row className="chat-row">
                 <Col xs={3} className='p-0 chat-col'>
-                    <ChatSidebar chatId={chatId}/>
+                    <ChatSidebar chatId={chatId} chats={chats} setChats={setChats}/>
                 </Col>
                 <Col xs={9} className='p-0 chat-col'>
                     <Template />

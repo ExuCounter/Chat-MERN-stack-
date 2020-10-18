@@ -22,7 +22,7 @@ export const useHttp = () => {
             try {
                 data = JSON.parse(data);
             } catch (err) {
-                console.log('Answer from server is not JSON');
+                console.log('Answer from server is not JSON' + err);
             }
             setLoading(false);
             return data;
