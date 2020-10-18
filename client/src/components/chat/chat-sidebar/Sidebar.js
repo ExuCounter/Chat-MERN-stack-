@@ -23,7 +23,13 @@ export const ChatSidebar = ({ chatId, chats, setChats }) => {
       {(chats.length !== 0 && (
         <>
           {chats.map((sidebarChat) => {
-            return <SidebarMessage chat={sidebarChat} chatId={chatId} />;
+            return (
+              <SidebarMessage
+                key={sidebarChat._id}
+                chat={sidebarChat}
+                chatId={chatId}
+              />
+            );
           })}
         </>
       )) || (

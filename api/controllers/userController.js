@@ -14,11 +14,11 @@ async function getAllUsers(req, res, next) {
 
 async function getUserChats(req, res, next) {
     try {
-        const chats = await Chat.find({ senderId: req.body.id });
+        const { id } = req.body;
+        const chats = await Chat.find({ senderId: id });
         const updatedChats = [];
         for (let chat of chats) {
             const fetchData = async() => {
-                const interlocutor = await getUsernameById(chat._id, req.body.id);
                 const {
                     _id,
                     senderId,
@@ -26,11 +26,13 @@ async function getUserChats(req, res, next) {
                     lastMessageId,
                     lastMessageDate,
                 } = chat;
+                const interlocutor = await getUsernameById(_id, id);
+                const lastMessage = await getMessageBodyById(lastMessageId);
                 const updatedChat = {
                     _id,
                     senderId,
                     receiverId,
-                    lastMessageId,
+                    lastMessage,
                     lastMessageDate,
                     interlocutor,
                 };
@@ -49,7 +51,7 @@ async function getUserChats(req, res, next) {
 
 async function getUserChatMessages(req, res, next) {
     try {
-        let messages = await Message.find({ chatId: req.params.id });
+        const messages = await Message.find({ chatId: req.params.id });
         res.status(200).send(messages);
     } catch (err) {
         res.status(500).send("No messages yet");
@@ -59,7 +61,7 @@ async function getUserChatMessages(req, res, next) {
 async function getChatInfo(req, res, next) {
     try {
         const { id } = req.body;
-        let chat = await Chat.find({ _id: id });
+        const chat = await Chat.find({ _id: id });
         console.log("getChatInfo -> id", id)
         res.status(200).send(chat);
     } catch (err) {
@@ -69,13 +71,22 @@ async function getChatInfo(req, res, next) {
 
 async function getUsernameById(chatId, userId) {
     try {
-        let chat = await Chat.findOne({ _id: chatId });
-        let interlocutor =
+        const chat = await Chat.findOne({ _id: chatId });
+        const interlocutor =
             userId == chat.senderId ?
             await User.findOne({ _id: chat.receiverId }) :
             await User.findOne({ _id: chat.senderId });
         return interlocutor.username;
     } catch (err) {
+        return null;
+    }
+}
+
+async function getMessageBodyById(messageId) {
+    try {
+        const message = await Message.findOne({ _id: messageId });
+        return message.body;
+    } catch (error) {
         return null;
     }
 }
@@ -114,7 +125,13 @@ async function createMessage(req, res, next) {
         files,
         body,
     });
+    const chat = await Chat.findOneAndUpdate({ _id: chatId }, {
+        $set: {
+            lastMessageId: message._id
+        }
+    });
     message.save();
+    chat.save();
     res.send({ message });
     // return message;
 }
