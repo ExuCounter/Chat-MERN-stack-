@@ -6,7 +6,7 @@ import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
 import {AuthContext} from '../../../context/AuthContext';
 
-export const ChatContent = ({chatId}) => {
+export const ChatContent = ({ chatId, chats, setChats }) => {
     const [chatMessages, setChatMessages] = useState(null);
     const {request} = useHttp(); 
     const auth = useContext(AuthContext);
@@ -57,7 +57,7 @@ export const ChatContent = ({chatId}) => {
                             </div>
                         ))}
                     </div>
-                    <ChatFooter chatId={chatId}/>
+                    <ChatFooter chatId={chatId} chats={chats} setChats={setChats} setChatMessages={setChatMessages}/>
                 </React.Fragment>
             }
         </ChatContentInner>

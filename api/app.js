@@ -13,6 +13,9 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 // Mongoose
 const mongoose = require('mongoose');
+// Socket
+const http = require('http');
+const io = require('socket.io')();
 
 const url = "mongodb://localhost:27017/";
 const mongoClient = new MongoClient(url, {
@@ -48,4 +51,14 @@ mongoose.connect("mongodb://localhost:27017/chat", {
 // Listen determined port
 app.listen(config.PORT, () => {
     console.log(`Server listen port ${config.PORT}`);
+})
+
+io.listen(4000);
+
+// Socket connection
+io.on('connection', (client) => {
+    client.on('message', (message) => {
+        console.log('message');
+        io.emit('message', message);
+    })
 })

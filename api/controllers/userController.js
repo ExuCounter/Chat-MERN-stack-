@@ -15,7 +15,9 @@ async function getAllUsers(req, res, next) {
 async function getUserChats(req, res, next) {
     try {
         const { id } = req.body;
-        const chats = await Chat.find({ senderId: id });
+        const sendChats = await Chat.find({ senderId: id });
+        const receiveChats = await Chat.find({ receiverId: id });
+        const chats = [...sendChats, ...receiveChats];
         const updatedChats = [];
         for (let chat of chats) {
             const fetchData = async() => {
