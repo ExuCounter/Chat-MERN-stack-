@@ -6,27 +6,10 @@ import {ChatFooter} from './Footer';
 import {ChatContext} from '../../../context/ChatContext';
 import {AuthContext} from '../../../context/AuthContext';
 
-export const ChatContent = ({ chatId, chats, setChats }) => {
-    const [chatMessages, setChatMessages] = useState(null);
+export const ChatContent = ({ chatId, chats, setChats, socket, chatMessages, setChatMessages }) => {
     const {request} = useHttp(); 
     const auth = useContext(AuthContext);
     const chat = useContext(ChatContext);
-
-    useEffect(()=>{
-        async function fetchData() {
-            console.log(chatId);
-            if(chatId){
-                const data = await request(`/chat/${chatId}`, "POST", { id: chatId }); 
-                console.log(data);
-                if(data !== ''){
-                    setChatMessages(data)
-                } else{
-                    setChatMessages(null);
-                }
-            }
-        }
-        fetchData();
-    }, [chatId])
 
     const ChatContentInner = ({children}) => {
         return(
@@ -35,7 +18,6 @@ export const ChatContent = ({ chatId, chats, setChats }) => {
             </div>
         )
     }
-
 
     return(
         <ChatContentInner>
@@ -57,7 +39,7 @@ export const ChatContent = ({ chatId, chats, setChats }) => {
                             </div>
                         ))}
                     </div>
-                    <ChatFooter chatId={chatId} chats={chats} setChats={setChats} setChatMessages={setChatMessages}/>
+                    <ChatFooter chatId={chatId} chats={chats} setChats={setChats} socket={socket}/>
                 </React.Fragment>
             }
         </ChatContentInner>
