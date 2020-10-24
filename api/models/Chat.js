@@ -1,5 +1,4 @@
 const { Schema, model, Types } = require('mongoose');
-const ObjectId = require('mongodb').ObjectID;
 
 const chatSchema = new Schema({
     senderId: { type: Schema.Types.ObjectId, ref: 'User' },

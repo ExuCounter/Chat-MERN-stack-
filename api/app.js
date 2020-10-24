@@ -9,19 +9,12 @@ const registerRouter = require('./routes/registerRouter.js');
 const userRouter = require('./routes/userRouter.js');
 // Body Parser
 const bodyParser = require('body-parser');
-// Mongo DB
-const MongoClient = require('mongodb').MongoClient;
 // Mongoose
 const mongoose = require('mongoose');
 // Socket
-const http = require('http');
 const io = require('socket.io')();
 
 const url = "mongodb://localhost:27017/";
-const mongoClient = new MongoClient(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,21 +25,15 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/chat', userRouter);
 
-// Mongo DB Connect
-mongoClient.connect((err, client) => {
-    if (err) return console.error(err);
-    app.locals.usersCollection = client.db('chat').collection('users');
-    app.locals.usersCollection.find().toArray((err, collection) => {
-        if (err) return console.error(err);
-        console.log('Database connection estabilished')
-    })
-})
-
 // Mongoose Connect 
-mongoose.connect("mongodb://localhost:27017/chat", {
+mongoose.connect(`${config.mongoURL}/chat`, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
+
+mongoose.connection.on('connected', () => {
+    console.log('MongoDB connection established');
+})
 
 // Listen determined port
 app.listen(config.PORT, () => {
